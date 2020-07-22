@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "loopback"
+  ],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "max-len": "off",
+    "space-before-function-paren": "off"
+  }
+}
