@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const EventEmitter = require('events');
 const stan = require('node-nats-streaming');
 const nats = require('nats');
-const prefix = '[NATS]';
+const prefix = '[COLA NATS]';
 /**
  * Enum connection state
  * @readonly

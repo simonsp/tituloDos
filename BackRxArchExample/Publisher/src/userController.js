@@ -1,4 +1,4 @@
-const routeController = (queueClient) => {
+const createUser = (queueClient) => {
 	return (req, res) => {
 		const { name, age, company } = req.body;
 		
@@ -14,4 +14,4 @@ const routeController = (queueClient) => {
 	}
 };
 
-module.exports = routeController;
+module.exports = createUser;

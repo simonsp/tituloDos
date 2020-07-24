@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
 const QueueClient = require('./NatsStreamingClient');
-const routeController = require('./routeController');
+const createUser = require('./userController');
 
 const clientId = `client_${(new Date()).getTime()}`;
 const clusterName = process.env.QUEUE_CLUSTER_NAME;
@@ -20,9 +20,8 @@ const client = new QueueClient(clusterName, clientId, configurations);
 client
 	.on('queue:connect', (nc) => {
 		const opts = nc.subscriptionOptions();
-		// opts.setAckWait(5 * 1000); // 5s change default timeout
-		opts.setManualAckMode(true); // Manual ACK (30s default)
-		opts.setDeliverAllAvailable(); // Deliver all message (even from the persistent store)
+		opts.setManualAckMode(true);
+		opts.setDeliverAllAvailable();
 		console.log('');
 	})
 	.on('queue:state_changed', (newState) => {
@@ -36,6 +35,6 @@ client
 
 const app = express();
 app.use(bodyParser.json());
-app.post('/user', routeController(client));
+app.post('/user', createUser(client));
 
 module.exports = app;

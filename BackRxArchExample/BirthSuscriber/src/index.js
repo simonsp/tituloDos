@@ -29,7 +29,7 @@ app.hydrate('boot_scripts').then((modules) => {
 
       processEvent(message, publishMessageOnQueue, markAsProcessed, log);
     } catch (error) {
-      logger.error('currió un error al procesar el nuevo mensaje.');
+      logger.error('Ocurrió un error al procesar el nuevo mensaje.');
       logger.debug({
         'event_name': eventName,
         'message': msg.data,
