@@ -1,8 +1,12 @@
+//Express and BodyParser
 const express = require('express');
 const bodyParser = require('body-parser');
+//Chalk
 const chalk = require('chalk');
+//Queue configuration
 const QueueClient = require('./NatsStreamingClient');
-const createUser = require('./userController');
+//Controller
+const {createUser, deleteUser} = require('./userController');
 
 const clientId = `client_${(new Date()).getTime()}`;
 const clusterName = process.env.QUEUE_CLUSTER_NAME;
@@ -32,9 +36,9 @@ client
 		console.log('Máx. de intentos alcanzados', retries);
 	});
 
-
 const app = express();
 app.use(bodyParser.json());
-app.post('/user', createUser(client));
+app.post('/create', createUser(client));
+app.delete('/delete', deleteUser(client));
 
 module.exports = app;

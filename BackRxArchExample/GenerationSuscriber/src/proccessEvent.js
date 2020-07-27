@@ -1,5 +1,6 @@
 'use strict';
 const chalk = require('chalk').default;
+const logger = require('peanut-restify/logger');
 const CONFIG = require('peanut-restify/config');
 
 const getGeneration = birthYear => {
@@ -10,16 +11,21 @@ const getGeneration = birthYear => {
   if (birthYear >= 1998) return 'Generacion Z';
 };
 
-module.exports = (message, publishMessageOnQueue, markAsProcessed, log) => {
-  const newMessage = {
-    ...message,
-    generation: getGeneration(message.birth_year),
-  };
-
-  publishMessageOnQueue(newMessage)
-    .then(ack => {
-      log(newMessage, chalk.yellow('Generación calculada.'), chalk.yellow(`Registro publicado al canal: ${chalk.redBright(CONFIG.get('QUEUE_EVENT_TO_PUBLISH'))} | ack: ${ack}`));
-      markAsProcessed();
-    })
-    .catch(err => console.error(err));
+module.exports = (message, publishMessageOnQueue, markAsProcessed, log, eventName) => {
+  if(eventName === 'users.deleted'){
+    console.log(message)
+    markAsProcessed();
+  } else {
+    const newMessage = {
+      ...message,
+      generation: getGeneration(message.birth_year),
+    };
+  
+    publishMessageOnQueue(newMessage)
+      .then(ack => {
+        log(newMessage, chalk.yellow('Generación calculada.'), chalk.yellow(`Registro publicado al canal: ${chalk.redBright(CONFIG.get('QUEUE_EVENT_TO_PUBLISH'))} | ack: ${ack}`));
+        markAsProcessed();
+      })
+      .catch(err => console.error(err));
+  }
 };

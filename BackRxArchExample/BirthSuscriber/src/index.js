@@ -25,9 +25,8 @@ app.hydrate('boot_scripts').then((modules) => {
     try {
       const message = JSON.parse(msg.data);
       logger.info('------------------');
-      logger.info(chalk.yellow(`Nuevo mensaje en el canal: ${chalk.redBright(CONFIG.get('QUEUE_EVENT_TO_SUBSCRIBE'))}`));
-
-      processEvent(message, publishMessageOnQueue, markAsProcessed, log);
+      logger.info(chalk.yellow(`Nuevo mensaje en el canal: ${chalk.redBright(eventName)}`));
+      processEvent(message, publishMessageOnQueue, markAsProcessed, log, eventName);
     } catch (error) {
       logger.error('Ocurrió un error al procesar el nuevo mensaje.');
       logger.debug({
