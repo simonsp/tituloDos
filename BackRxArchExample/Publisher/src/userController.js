@@ -7,7 +7,7 @@ const createUser = (queueClient) => {
 		queueClient.publish(process.env.QUEUE_EVENT_TO_PUBLISH_CREATE, JSON.stringify({ name, age, company }))
 			.then(done => {
 				console.log(`Publicado a la cola con el ack: ${done}`);
-				ioWrapper.io.emit('createUser', {name, age, company})
+				ioWrapper.io.emit('userPublished', {name, age, company})
 				res.send(`Listo, ack: ${done}`)
 			})
 			.catch(err => {
