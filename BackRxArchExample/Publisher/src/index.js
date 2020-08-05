@@ -1,5 +1,6 @@
 //Express and BodyParser
 const express = require('express');
+const cors = require(`cors`)
 const bodyParser = require('body-parser');
 //Chalk
 const chalk = require('chalk');
@@ -37,6 +38,7 @@ client
 	});
 
 const app = express();
+app.use(cors())
 app.use(bodyParser.json());
 app.post('/create', createUser(client));
 app.delete('/delete', deleteUser(client));
