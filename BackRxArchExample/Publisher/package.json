@@ -20,6 +20,6 @@
     "node-emoji": "^1.8.1",
     "node-nats-streaming": "0.0.51",
     "nodemon": "^1.18.6",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
