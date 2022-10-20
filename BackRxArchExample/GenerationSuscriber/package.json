@@ -19,7 +19,7 @@
     "node-emoji": "^1.8.1",
     "node-nats-streaming": "0.0.40",
     "nodemon": "^1.18.3",
-    "peanut-restify": "1.1.59"
+    "peanut-restify": "2.2.13"
   },
   "devDependencies": {
     "eslint": "^5.1.0",
